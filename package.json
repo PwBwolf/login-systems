@@ -1,0 +1,27 @@
+{
+  "name": "login-systems",
+  "version": "1.0.0",
+  "description": "base application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PwBwolf/login-systems.git"
+  },
+  "author": "Peter Borodich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PwBwolf/login-systems/issues"
+  },
+  "homepage": "https://github.com/PwBwolf/login-systems#readme",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "bower": "^1.6.8",
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "express-jwt": "^3.3.0",
+    "mongoose": "^4.2.9"
+  }
+}
