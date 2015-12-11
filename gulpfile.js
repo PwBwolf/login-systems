@@ -18,6 +18,7 @@ var gulp = require('gulp'),
     dist: 'public/'
 };
 
+//have gulp see where all of our files are so it can build them into the public folder.
 var paths = {
     libs: [
         'bower_components/jquery/dist/jquery.min.js',
@@ -35,3 +36,9 @@ var paths = {
         'bower_components/toastr/toastr.min.css'
     ]
 };
+
+
+// Define default task
+gulp.task('default', ['clean', 'copy', 'bundle', 'concat']);
+// Define dev task
+gulp.task('dev', ['clean', 'copy', 'bundle', 'concatDev', 'watch']);
