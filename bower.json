@@ -1,0 +1,28 @@
+{
+  "name": "login-systems",
+  "description": "base application",
+  "main": "server.js",
+  "authors": [
+    "Peter Borodich"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/PwBwolf/login-systems",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.3",
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4",
+    "angular-ui-router": "~0.2.15",
+    "angular-bootstrap": "~0.13.1",
+    "toastr": "~2.1.1",
+    "datejs": "~1.0.0-rc3"
+  }
+}
