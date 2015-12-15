@@ -5,9 +5,9 @@ var gulp = require('gulp'),
     clean = require('gulp-clean'),
     concat = require('gulp-concat'),
     cssmin = require('gulp-cssmin'),
-    jshint = require('gulp-jshint'),
-    livereload = require('gulp-livereload'),
-    uglify = require('gulp-uglify');
+    jshint = require('gulp-jshint'), //detect errors and potential problems in JavaScript code 
+    livereload = require('gulp-livereload'), //will not automatically listen for changes.
+    uglify = require('gulp-uglify'); //parser/compressor/beautifier toolkit. 
 /**
  * Configuration variables
  */
@@ -37,6 +37,76 @@ var paths = {
     ]
 };
 
+//this task cleans out the public file that is in the dist folder
+gulp.task('clean', function() {
+    gulp.src('/' + bases.dist + '**/*', { cwd: __dirname })
+        .pipe(clean({force: true}));
+});
+
+// Define copy task
+gulp.task('copy', function () {
+    // Copy html
+    gulp.src(bases.app + 'index.html')
+        .pipe(gulp.dest(bases.dist))
+        .pipe(livereload());
+    // Copy favicon
+    // gulp.src(bases.app + 'favicon.ico')
+    //     .pipe(gulp.dest(bases.dist));
+    // Copy fonts
+    // gulp.src(bases.app + '/fonts/**/*')
+    //     .pipe(gulp.dest(bases.dist + 'fonts'));
+    // Copy partial views
+    gulp.src(bases.app + '/partials/**/*.html')
+        .pipe(gulp.dest(bases.dist + 'partials'))
+        .pipe(livereload());
+});
+
+// Define bundle task
+gulp.task('bundle', function () {
+    // Bundle js files
+    gulp.src(paths.libs) //grab all of the bower_componets js libraries specefied above
+        .pipe(concat('bundle.min.js')) // pipe(when data becomes available) all those source files into concanttanated file called 'bundle.min.js' 
+        .pipe(gulp.dest(bases.dist + '/js')); //pipe the above conc files and save them to the base.dist(public folder)/js folder. 
+    // Bundle css files
+    gulp.src(paths.styles) //grab all of the bower_components cdd libraries specified above 
+        .pipe(concat('bundle.min.css')) //concat and minify them them into one fle called 'bundle.min.css'
+        .pipe(gulp.dest(bases.dist + '/css')); //then save them in the public css folder
+});
+// Define concat task
+gulp.task('concat', function () {
+    // Concatenate all custom js files
+    gulp.src(bases.app + 'js/**/*.js') //grab all of my client side (angular) javascript
+        .pipe(jshint()) //detect any possible errors or potential JS problems
+        .pipe(jshint.reporter('default'))
+        .pipe(concat('pboro.min.js')) //pipe all of the js file into one concattinated js file 
+        .pipe(uglify()) //compressor/parse
+        .pipe(gulp.dest(bases.dist + '/js')); //save all the js files in the public folder under /js 
+    // Concatenate all custom css files
+    gulp.src(bases.app + 'css/**/*.css') //grab all of my custom css files 
+        .pipe(concat('pboro.min.css')) //pipe all the css files into one concattinates css file 
+        .pipe(cssmin())
+        .pipe(gulp.dest(bases.dist + '/css'));
+});
+gulp.task('concatDev', function () {
+    // Concatenate all custom js files
+    gulp.src(bases.app + 'js/**/*.js')
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
+        .pipe(concat('pboro.min.js'))
+        .pipe(gulp.dest(bases.dist + '/js'))
+        .pipe(livereload());
+    // Concatenate all custom css files
+    gulp.src(bases.app + 'css/**/*.css')
+        .pipe(concat('pboro.min.css'))
+        .pipe(cssmin())
+        .pipe(gulp.dest(bases.dist + '/css'))
+        .pipe(livereload());
+});
+// Define watch task
+gulp.task('watch', function () {
+    livereload.listen();
+    gulp.watch(bases.app + '**/*', ['clean', 'copy', 'bundle', 'concatDev']);
+});
 
 // Define default task
 gulp.task('default', ['clean', 'copy', 'bundle', 'concat']);
