@@ -4,7 +4,7 @@
 var gulp = require('gulp'),
     clean = require('gulp-clean'),
     concat = require('gulp-concat'),
-    cssmin = require('gulp-cssmin'),
+    cssmin = require('gulp-cssmin'), //detect errors and potential problems with css files
     jshint = require('gulp-jshint'), //detect errors and potential problems in JavaScript code 
     livereload = require('gulp-livereload'), //will not automatically listen for changes.
     uglify = require('gulp-uglify'); //parser/compressor/beautifier toolkit. 
@@ -84,8 +84,8 @@ gulp.task('concat', function () {
     // Concatenate all custom css files
     gulp.src(bases.app + 'css/**/*.css') //grab all of my custom css files 
         .pipe(concat('pboro.min.css')) //pipe all the css files into one concattinates css file 
-        .pipe(cssmin())
-        .pipe(gulp.dest(bases.dist + '/css'));
+        .pipe(cssmin()) //detect for errors
+        .pipe(gulp.dest(bases.dist + '/css')); //save all the css files int the public folder under /cdd
 });
 gulp.task('concatDev', function () {
     // Concatenate all custom js files
@@ -103,8 +103,8 @@ gulp.task('concatDev', function () {
         .pipe(livereload());
 });
 // Define watch task
-gulp.task('watch', function () {
-    livereload.listen();
+gulp.task('watch', function () { //this will run and listen to any updates that are made. 
+    livereload.listen(); 
     gulp.watch(bases.app + '**/*', ['clean', 'copy', 'bundle', 'concatDev']);
 });
 
