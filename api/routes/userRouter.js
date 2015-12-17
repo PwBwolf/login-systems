@@ -14,10 +14,7 @@ var express = require('express'),
 
 
 
-// This route deals enables HTML5Mode by forwarding missing files to the index.html
-app.all('/*', function(req, res) {
-    res.sendFile(__dirname + '/public/index.html');
-});
+// This route deals enables HTML5Mode by forwarding missing files to the index.htm
 
 
 
