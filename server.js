@@ -12,7 +12,7 @@ var app = express();
 /**
  * Connect to MongDB database
  */
-// require('./api/db/connect.js');
+require('./api/db/connect.js');
 
 /**
  * Middlewares
