@@ -8,9 +8,10 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
 var userSchema = new mongoose.Schema({
-  name: String  ,
-  email: String,
-  password: String
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true }
 })
 
-var user = mongoose.model('user', userSchema); 
+// Define user mongoose model
+var user = mongoose.model('user', userSchema, 'user');

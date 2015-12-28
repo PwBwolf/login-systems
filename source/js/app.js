@@ -9,6 +9,6 @@
       'ui.router', 
       'ui.bootstrap'
     ]);
-}())
+}());
 
 
