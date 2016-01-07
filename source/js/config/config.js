@@ -6,7 +6,10 @@
     // Config pseudo constructor function
     function config($locationProvider, $httpProvider) {
         // Activate HTML5 mode navigation
-         $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode({
+          enabled: true,
+          requireBase: false
+        });
         // Toastr messages configuration
         // For more options visit: http://codeseven.github.io/toastr/demo.html
         toastr.options = {
@@ -27,7 +30,7 @@
             "hideMethod": "fadeOut"
         };
         // Register our authentication token interceptor
-        $httpProvider.interceptors.push('AuthInterceptorFactory');
+        // $httpProvider.interceptors.push('AuthInterceptorFactory');
     }
     // Run pseudo constructor function
     function run() {
