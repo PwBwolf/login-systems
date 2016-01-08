@@ -11,7 +11,7 @@ var userSchema = new mongoose.Schema({
   name: { type: String, required: true },// for each key value pair we are defining the type and if it is required to create user.
   email: { type: String, required: true },
   password: { type: String, required: true },
-  admin: { type: String }
+  admin: { type: Boolean }
 })
 
 

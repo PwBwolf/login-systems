@@ -6,7 +6,7 @@
  */
 var express = require('express'),
     userService = require('../services/userService.js'),
-    jwt = require('jsonwebtoken'),
+    jwt = require('jsonwebtoken'), //is how we create and verify our JSON web tokens
     settings = require('../config/settings.js'), //contains connection for mongodb 
     // Create Express router
     router = express.Router();
@@ -23,6 +23,16 @@ router.get('/', function (req, res) {
         res.status(400).json(err);
     });
 });
+
+/**
+ * Sign in selected user
+ */
+
+
+
+/**
+ * Sign up a new user
+ */
 
 
 // Export router to be re-used
