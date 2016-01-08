@@ -1,9 +1,10 @@
 // Define settings object
 var settings = {
     environment: global.environment || process.env.NODE_ENV || 'development',
+    //creating mongodb database 
     database: {
         production: {
-            //url: 'mongodb://cepan:cepan@ds033133.mongolab.com:33133/heroku_rpn09jgm'
+            //url: 'mongodb://''
         },
         test: {
             url: 'mongodb://localhost/logs-dev'

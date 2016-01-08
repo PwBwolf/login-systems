@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/PwBwolf/login-systems#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",
     "bower": "^1.6.8",
     "cors": "^2.7.1",
