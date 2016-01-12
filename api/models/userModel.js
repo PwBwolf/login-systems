@@ -22,6 +22,10 @@ userSchema.pre('save', function (next) {
     return next();
   }
   // Make the SALT 
+  // first paramater rounds - the number of rounds to process the data for. (default - 10)
+  // second paramater callback (
+  //  err = error - First parameter to the callback detailing any errors ,
+  //  salt = result - Second parameter to the callback providing the generated salt )
   bcrypt.genSalt(10, function (err, salt) {
     if (err) {
       return next(err);
@@ -40,8 +44,17 @@ userSchema.pre('save', function (next) {
 
 });
 
+// Remove the password from the retrieved user
+userSchema.methods.toJSON = function () {
+    var user = this.toObject();
+    delete user.password;
 
-
+    return user;
+};
+// Compare user passwords
+userSchema.methods.comparePasswords = function (password, callback) {
+    bcrypt.compare(password, this.password, callback);
+};
  
 // Define user mongoose model
 var user = mongoose.model('user', userSchema, 'user');

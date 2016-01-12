@@ -28,8 +28,8 @@ router.get('/', function (req, res) {
  * Sign in selected user
  */
 router.get('/signin', function (req, res) {
-  userService.signin(req.body, function (user) { //run sign in function in the userService module 
-    user.comparePasswords(req.body.password, function (err, isMatch) {
+  userService.signin(req.body, function (user) { //you are calling the signin function that is in the userService module.
+    user.comparePasswords(req.body.password, function (err, isMatch) { 
           if (err) {
               res.status(400).json(err);
           }
@@ -60,9 +60,20 @@ router.get('/signin', function (req, res) {
  */
 
 router.post('/signup', function (req, res) {
-  //use the signup function in the userService module pass in params from request then run callback function
+  //use the signup function in the userService module, pass in the credentials entered in, then callback
+  //that will take the user.id that was created and give it to the token object that has the jwt that witll 
+  //create the token once that is created send the user and token id back to the client. to store locally the user is signed in now.  
   userService.signup(req.body, function(user) { 
+      var payload = {
+          sub: user._id
+      };
 
+      var token = jwt.sign(payload, settings.jwtSecret);
+
+      res.status(201).send({
+          user: user.toJSON(),
+          token: token
+      });
   }, function(err) { //if there is an error throw a 400 'bad request' error
     res.status(400).json(err);
   });
